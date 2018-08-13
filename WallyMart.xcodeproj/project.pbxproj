@@ -64,11 +64,11 @@
 		0FA366D82121C94E00C78769 /* WallyMart */ = {
 			isa = PBXGroup;
 			children = (
+				0FA366FB212232E000C78769 /* ViewController */,
 				0FA366F82121FBEF00C78769 /* View */,
 				0FA366F22121D59000C78769 /* Data Model */,
 				0FA366EB2121C97E00C78769 /* Networking */,
 				0FA366D92121C94E00C78769 /* AppDelegate.swift */,
-				0FA366DB2121C94F00C78769 /* SearchViewController.swift */,
 				0FA366E02121C95300C78769 /* Assets.xcassets */,
 				0FA366E22121C95300C78769 /* LaunchScreen.storyboard */,
 				0FA366E52121C95300C78769 /* Info.plist */,
@@ -109,6 +109,14 @@
 				0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0FA366FB212232E000C78769 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0FA366DB2121C94F00C78769 /* SearchViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

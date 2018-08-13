@@ -16,13 +16,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
     /// Image
     @IBOutlet private var imgView: UIImageView!
     
-    /// Name
-    @IBOutlet private var nameLabel: UILabel!
-    
-    /// Description
-    @IBOutlet private var descriptionLabel: UILabel!
-    
-    
     /// Path of image, used to check for race conditions
     private var imgPath : URL!
     
@@ -31,11 +24,9 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     
     /// Configures the cell
-    func configureCell(price: Double?, imgURL: String?, title: String?, description: String?) {
+    func configureCell(price: Double?, imgURL: String?) {
         setImg(with: imgURL)
         setPrice(price)
-        setTitle(title)
-        setDescription(description)
     }
     
     override func prepareForReuse() {
@@ -43,8 +34,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
         cancelPreviousTaskForCell()
         setImg(with: nil)
         setPrice(nil)
-        setTitle(nil)
-        setDescription(nil)
     }
     
     /// Sets the cell's image
@@ -68,30 +57,12 @@ class ItemCollectionViewCell: UICollectionViewCell {
     /// Sets the cell's price label
     private func setPrice(_ price : Double?) {
         if let price = price {
-            priceLabel.text = String(price)
+            priceLabel.text = "$" + String(price)
         } else {
             priceLabel.text = ""
         }
     }
-    
-    /// Sets the cell's title label
-    private func setTitle(_ title : String?) {
-        if let title = title {
-            nameLabel.text = title
-        } else {
-            nameLabel.text = ""
-        }
-    }
-    
-    /// Sets the cell's description label
-    private func setDescription(_ description : String?) {
-        if let description = description {
-            descriptionLabel.text = description
-        } else {
-            descriptionLabel.text = ""
-        }
-    }
-    
+  
     /// Finds and cancels the `lastRequest`
     private func cancelPreviousTaskForCell() {
         URLSession.shared.getTasksWithCompletionHandler { [weak self] (dataTasks, _, _) in
