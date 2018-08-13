@@ -9,7 +9,7 @@
 import UIKit
 
 class ItemCollectionViewCell: UICollectionViewCell {
-
+    
     /// Price label
     @IBOutlet private var priceLabel: UILabel!
     
@@ -31,9 +31,9 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     
     /// Configures the cell
-    func configureCell(price: Int, imgURL: String, title: String, description: String) {
+    func configureCell(price: Double?, imgURL: String?, title: String?, description: String?) {
         setImg(with: imgURL)
-        setPrice(String(price))
+        setPrice(price)
         setTitle(title)
         setDescription(description)
     }
@@ -42,9 +42,9 @@ class ItemCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         cancelPreviousTaskForCell()
         setImg(with: nil)
-        setPrice("")
-        setTitle("")
-        setDescription("")
+        setPrice(nil)
+        setTitle(nil)
+        setDescription(nil)
     }
     
     /// Sets the cell's image
@@ -66,18 +66,30 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     
     /// Sets the cell's price label
-    private func setPrice(_ price : String) {
-        priceLabel.text = String(price)
+    private func setPrice(_ price : Double?) {
+        if let price = price {
+            priceLabel.text = String(price)
+        } else {
+            priceLabel.text = ""
+        }
     }
     
     /// Sets the cell's title label
-    private func setTitle(_ title : String) {
-        nameLabel.text = title
+    private func setTitle(_ title : String?) {
+        if let title = title {
+            nameLabel.text = title
+        } else {
+            nameLabel.text = ""
+        }
     }
     
     /// Sets the cell's description label
-    private func setDescription(_ description : String) {
-        descriptionLabel.text = description
+    private func setDescription(_ description : String?) {
+        if let description = description {
+            descriptionLabel.text = description
+        } else {
+            descriptionLabel.text = ""
+        }
     }
     
     /// Finds and cancels the `lastRequest`
@@ -96,31 +108,45 @@ class ItemCollectionViewCell: UICollectionViewCell {
     private func fetchImg(url: URL, onCompletion: @escaping (PhotoFetchResult) -> ()) {
         let cache = URLCache.shared
         let request = URLRequest(url: url)
+        imgPath = url
         
-        let _ = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, _) in
-            guard let sSelf = self else {return}
-            DispatchQueue.main.async {
-                /// Check against race condition
-                guard url == sSelf.imgPath else {
-                    onCompletion(.failure)
-                    return
+        if let response = cache.cachedResponse(for: request) {
+            if let img = UIImage(data: response.data) {
+                DispatchQueue.main.async {
+                    onCompletion(.success(img))
                 }
-                guard let data = data, let response = response else {
-                    print("Img data not retrieved in fetch")
-                    onCompletion(.failure)
-                    return
-                }
-                
-                guard let img = UIImage(data: data) else {
-                    print("Img conversion failed")
-                    onCompletion(.failure)
-                    return
-                }
-                let cachedData = CachedURLResponse(response: response, data: data)
-                cache.storeCachedResponse(cachedData, for: request)
-                onCompletion(.success(img))
+            } else {
+                cache.removeCachedResponse(for: request)
             }
-        }).resume()
+        } else {
+            let _ = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, _) in
+                guard let sSelf = self else {return}
+                DispatchQueue.main.async {
+                    /// Check against race condition
+                    guard url == sSelf.imgPath else {
+                        onCompletion(.failure)
+                        return
+                    }
+                    guard let data = data, let response = response else {
+                        print("Img data not retrieved in fetch")
+                        onCompletion(.failure)
+                        return
+                    }
+                    
+                    guard let img = UIImage(data: data) else {
+                        print("Img conversion failed")
+                        onCompletion(.failure)
+                        return
+                    }
+                    let cachedData = CachedURLResponse(response: response, data: data)
+                    cache.storeCachedResponse(cachedData, for: request)
+                    onCompletion(.success(img))
+                }
+            }).resume()
+        }
+        
+        
+        
     }
     
     /// Photo fetch can either be successful or a failure. A successful result will include an image.
@@ -129,8 +155,11 @@ class ItemCollectionViewCell: UICollectionViewCell {
         case failure
     }
     
+    // QUESTION:
+    /// Using the nibName here - that is a normal practice for nib's right?
     struct Constants {
         static let reuseIdentifier = "WallmartItemCell"
+        static let nibName = "ItemCollectionViewCell"
     }
     
 }

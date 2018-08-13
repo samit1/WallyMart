@@ -31,20 +31,21 @@ class SearchViewController: UIViewController{
     
     /// Responsible for showing content to user
     private lazy var itemCollectionView : UICollectionView = {
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout.init())
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = .white
+        collectionView.register(UINib(nibName: ItemCollectionViewCell.Constants.nibName, bundle: nil), forCellWithReuseIdentifier: ItemCollectionViewCell.Constants.reuseIdentifier)
         return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addSearchbar()
+        addSubviews()
+        addConstraints()
         view.backgroundColor = UIColor.orange
-        
-        
-        
     }
 
     private func addSearchbar() {
@@ -71,13 +72,24 @@ class SearchViewController: UIViewController{
                 // MARK: Question
                 /// How do I handle paging coming back in the wrong order?
                 sSelf.lastRetrieved = max(startAt, sSelf.lastRetrieved)
-                itemCollectionView.reloadData()
+                sSelf.itemCollectionView.reloadData()
             case .failure(let error):
                 print(error)
             }
         }
     }
     
+    private func addSubviews() {
+        view.addSubview(itemCollectionView)
+    }
+    
+    private func addConstraints() {
+        let margins = view.safeAreaLayoutGuide
+        itemCollectionView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = true
+        itemCollectionView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = true
+        itemCollectionView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
+        itemCollectionView.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+    }
 
 }
 
@@ -86,6 +98,7 @@ extension SearchViewController : UISearchBarDelegate {
         guard let query = searchBar.text, !query.isEmpty else {
             return
         }
+        print("Clicked")
         lastSearch = query
         items.removeAll()
         searchAndRetrieve(query: query)
@@ -99,15 +112,30 @@ extension SearchViewController : UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(items.count)
         return items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
+        let cell = itemCollectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.Constants.reuseIdentifier, for: indexPath) as! ItemCollectionViewCell
+        
+        let saleItem = items[indexPath.row]
+        cell.configureCell(price: saleItem.salePrice, imgURL: saleItem.largeImage, title: saleItem.name, description: saleItem.shortDescription)
+        return cell
+        
     }
-    
-    
 }
+
+extension SearchViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let quarterWidth = view.bounds.width * 0.4
+        let halfHeight = view.bounds.height
+        let maxWidth = min(quarterWidth, halfHeight)
+        return CGSize(width: maxWidth, height: maxWidth)
+    }
+}
+
+
 
 
 
