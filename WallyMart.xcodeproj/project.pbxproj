@@ -8,20 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		0FA366DA2121C94E00C78769 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366D92121C94E00C78769 /* AppDelegate.swift */; };
-		0FA366DC2121C94F00C78769 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366DB2121C94F00C78769 /* ViewController.swift */; };
-		0FA366DF2121C94F00C78769 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366DD2121C94F00C78769 /* Main.storyboard */; };
+		0FA366DC2121C94F00C78769 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366DB2121C94F00C78769 /* SearchViewController.swift */; };
 		0FA366E12121C95300C78769 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366E02121C95300C78769 /* Assets.xcassets */; };
 		0FA366E42121C95300C78769 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366E22121C95300C78769 /* LaunchScreen.storyboard */; };
+		0FA366ED2121C98B00C78769 /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366EC2121C98B00C78769 /* SearchAPI.swift */; };
+		0FA366EF2121C9E000C78769 /* NetworkingErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366EE2121C9E000C78769 /* NetworkingErrors.swift */; };
+		0FA366F12121D58400C78769 /* WalmartSaleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366F02121D58400C78769 /* WalmartSaleItem.swift */; };
+		0FA366F52121D62600C78769 /* WalmartSearchPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366F42121D62600C78769 /* WalmartSearchPayload.swift */; };
+		0FA366F72121F65A00C78769 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0FA366D62121C94E00C78769 /* WallyMart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallyMart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA366D92121C94E00C78769 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0FA366DB2121C94F00C78769 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0FA366DE2121C94F00C78769 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0FA366DB2121C94F00C78769 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		0FA366E02121C95300C78769 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0FA366E32121C95300C78769 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0FA366E52121C95300C78769 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0FA366EC2121C98B00C78769 /* SearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
+		0FA366EE2121C9E000C78769 /* NetworkingErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingErrors.swift; sourceTree = "<group>"; };
+		0FA366F02121D58400C78769 /* WalmartSaleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalmartSaleItem.swift; sourceTree = "<group>"; };
+		0FA366F42121D62600C78769 /* WalmartSearchPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalmartSearchPayload.swift; sourceTree = "<group>"; };
+		0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +62,50 @@
 		0FA366D82121C94E00C78769 /* WallyMart */ = {
 			isa = PBXGroup;
 			children = (
+				0FA366F82121FBEF00C78769 /* View */,
+				0FA366F22121D59000C78769 /* Data Model */,
+				0FA366EB2121C97E00C78769 /* Networking */,
 				0FA366D92121C94E00C78769 /* AppDelegate.swift */,
-				0FA366DB2121C94F00C78769 /* ViewController.swift */,
-				0FA366DD2121C94F00C78769 /* Main.storyboard */,
+				0FA366DB2121C94F00C78769 /* SearchViewController.swift */,
 				0FA366E02121C95300C78769 /* Assets.xcassets */,
 				0FA366E22121C95300C78769 /* LaunchScreen.storyboard */,
 				0FA366E52121C95300C78769 /* Info.plist */,
 			);
 			path = WallyMart;
+			sourceTree = "<group>";
+		};
+		0FA366EB2121C97E00C78769 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0FA366EC2121C98B00C78769 /* SearchAPI.swift */,
+				0FA366EE2121C9E000C78769 /* NetworkingErrors.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		0FA366F22121D59000C78769 /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				0FA366F32121D60C00C78769 /* APIPayload */,
+			);
+			path = "Data Model";
+			sourceTree = "<group>";
+		};
+		0FA366F32121D60C00C78769 /* APIPayload */ = {
+			isa = PBXGroup;
+			children = (
+				0FA366F02121D58400C78769 /* WalmartSaleItem.swift */,
+				0FA366F42121D62600C78769 /* WalmartSearchPayload.swift */,
+			);
+			path = APIPayload;
+			sourceTree = "<group>";
+		};
+		0FA366F82121FBEF00C78769 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,9 +166,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FA366F72121F65A00C78769 /* ItemCollectionViewCell.xib in Resources */,
 				0FA366E42121C95300C78769 /* LaunchScreen.storyboard in Resources */,
 				0FA366E12121C95300C78769 /* Assets.xcassets in Resources */,
-				0FA366DF2121C94F00C78769 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,22 +179,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FA366DC2121C94F00C78769 /* ViewController.swift in Sources */,
+				0FA366F12121D58400C78769 /* WalmartSaleItem.swift in Sources */,
+				0FA366DC2121C94F00C78769 /* SearchViewController.swift in Sources */,
 				0FA366DA2121C94E00C78769 /* AppDelegate.swift in Sources */,
+				0FA366F52121D62600C78769 /* WalmartSearchPayload.swift in Sources */,
+				0FA366ED2121C98B00C78769 /* SearchAPI.swift in Sources */,
+				0FA366EF2121C9E000C78769 /* NetworkingErrors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0FA366DD2121C94F00C78769 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0FA366DE2121C94F00C78769 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0FA366E22121C95300C78769 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -281,6 +321,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V7DE4M4AKF;
 				INFOPLIST_FILE = WallyMart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -298,6 +339,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V7DE4M4AKF;
 				INFOPLIST_FILE = WallyMart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
