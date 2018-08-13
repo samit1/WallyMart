@@ -46,9 +46,9 @@ class SearchViewController: UIViewController{
     
     private var activityIndicator : UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.stopAnimating()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.activityIndicatorViewStyle = .whiteLarge
+        activityIndicator.color = UIColor.black
         return activityIndicator
     }()
     
@@ -171,6 +171,8 @@ class SearchViewController: UIViewController{
             itemCollectionView.addSubview(view)
             searchMe = view
         }
+        
+        itemCollectionView.addSubview(activityIndicator)
     }
     
     
@@ -185,6 +187,10 @@ class SearchViewController: UIViewController{
         
         searchMe.centerXAnchor.constraint(equalTo: itemCollectionView.centerXAnchor).isActive = true
         searchMe.centerYAnchor.constraint(equalTo: itemCollectionView.centerYAnchor).isActive = true
+        
+        activityIndicator.centerXAnchor.constraint(equalTo: itemCollectionView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: itemCollectionView.centerYAnchor).isActive = true
+        
     }
     
     /// Handles paging the paging for the next search results

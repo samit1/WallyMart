@@ -18,6 +18,7 @@
 		0FA366F72121F65A00C78769 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */; };
 		0FA366FA2121FC0E00C78769 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */; };
 		0FA366FD21223BE700C78769 /* SearchMe.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366FC21223BE700C78769 /* SearchMe.xib */; };
+		0FE3D094212247A2000EC8F2 /* AnimationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D093212247A2000EC8F2 /* AnimationView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		0FA366FC21223BE700C78769 /* SearchMe.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchMe.xib; sourceTree = "<group>"; };
+		0FE3D093212247A2000EC8F2 /* AnimationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimationView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		0FA366F82121FBEF00C78769 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0FE3D093212247A2000EC8F2 /* AnimationView.xib */,
 				0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */,
 				0FA366FC21223BE700C78769 /* SearchMe.xib */,
 				0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */,
@@ -183,6 +186,7 @@
 				0FA366F72121F65A00C78769 /* ItemCollectionViewCell.xib in Resources */,
 				0FA366FD21223BE700C78769 /* SearchMe.xib in Resources */,
 				0FA366E42121C95300C78769 /* LaunchScreen.storyboard in Resources */,
+				0FE3D094212247A2000EC8F2 /* AnimationView.xib in Resources */,
 				0FA366E12121C95300C78769 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
