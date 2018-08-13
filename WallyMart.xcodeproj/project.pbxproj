@@ -16,6 +16,7 @@
 		0FA366F12121D58400C78769 /* WalmartSaleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366F02121D58400C78769 /* WalmartSaleItem.swift */; };
 		0FA366F52121D62600C78769 /* WalmartSearchPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366F42121D62600C78769 /* WalmartSearchPayload.swift */; };
 		0FA366F72121F65A00C78769 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */; };
+		0FA366FA2121FC0E00C78769 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		0FA366F02121D58400C78769 /* WalmartSaleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalmartSaleItem.swift; sourceTree = "<group>"; };
 		0FA366F42121D62600C78769 /* WalmartSearchPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalmartSearchPayload.swift; sourceTree = "<group>"; };
 		0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
+		0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */,
+				0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				0FA366F52121D62600C78769 /* WalmartSearchPayload.swift in Sources */,
 				0FA366ED2121C98B00C78769 /* SearchAPI.swift in Sources */,
 				0FA366EF2121C9E000C78769 /* NetworkingErrors.swift in Sources */,
+				0FA366FA2121FC0E00C78769 /* ItemCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
