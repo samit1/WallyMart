@@ -17,6 +17,7 @@
 		0FA366F52121D62600C78769 /* WalmartSearchPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366F42121D62600C78769 /* WalmartSearchPayload.swift */; };
 		0FA366F72121F65A00C78769 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */; };
 		0FA366FA2121FC0E00C78769 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */; };
+		0FA366FD21223BE700C78769 /* SearchMe.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366FC21223BE700C78769 /* SearchMe.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		0FA366F42121D62600C78769 /* WalmartSearchPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalmartSearchPayload.swift; sourceTree = "<group>"; };
 		0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		0FA366FC21223BE700C78769 /* SearchMe.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchMe.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */,
+				0FA366FC21223BE700C78769 /* SearchMe.xib */,
 				0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */,
 			);
 			path = View;
@@ -178,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FA366F72121F65A00C78769 /* ItemCollectionViewCell.xib in Resources */,
+				0FA366FD21223BE700C78769 /* SearchMe.xib in Resources */,
 				0FA366E42121C95300C78769 /* LaunchScreen.storyboard in Resources */,
 				0FA366E12121C95300C78769 /* Assets.xcassets in Resources */,
 			);
