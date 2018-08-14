@@ -199,6 +199,16 @@ class SearchViewController: UIViewController {
         
         return paths
     }
+    
+    private func showForSalePage(for item: WalmartForSaleItem) {
+        guard let url = item.productUrl, let validURL = URL(string: url)  else {
+            print("Not a valid URL")
+            return
+        }
+        let destVC = SaleWebViewController()
+        destVC.url = validURL
+        self.navigationController?.pushViewController(destVC, animated: true)
+    }
 }
 
 extension SearchViewController : UISearchBarDelegate {
@@ -289,6 +299,11 @@ extension SearchViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: itemCollectionView.bounds.width, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let itemSelected = items[indexPath.row]
+        showForSalePage(for: itemSelected)
     }
 }
 
