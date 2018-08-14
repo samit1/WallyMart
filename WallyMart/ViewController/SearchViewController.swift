@@ -28,7 +28,11 @@ class SearchViewController: UIViewController{
     private var walmartAPI = WalmartSearchAPI()
     
     /// Items to display to user
-    private var items = [WalmartForSaleItem]()
+    private var items = [WalmartForSaleItem]() {
+        didSet {
+            print(items)
+        }
+    }
     
     /// A helper view to notify the user that they can perform searches
     private var searchMe = UIView() {
@@ -44,6 +48,7 @@ class SearchViewController: UIViewController{
         }
     }
     
+    /// Activity indicator shown at the center of the screen when a search is being performed
     private var activityIndicator : UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -60,9 +65,19 @@ class SearchViewController: UIViewController{
         collectionView.dataSource = self
         collectionView.backgroundColor = .white
         collectionView.register(UINib(nibName: ItemCollectionViewCell.Constants.nibName, bundle: nil), forCellWithReuseIdentifier: ItemCollectionViewCell.Constants.reuseIdentifier)
+        collectionView.register(UINib(nibName: AnimationFooterCollectionReusableView.Constants.nibName, bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: AnimationFooterCollectionReusableView.Constants.reuseIdentifer)
         return collectionView
     }()
     
+    /// Footer view for itemCollectionView
+    private lazy var footerView : AnimationFooterCollectionReusableView = {
+        var footerView = AnimationFooterCollectionReusableView()
+        footerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return footerView
+    }()
+    
+    /// State of the view
     enum ViewState {
         case noResults
         case populated
@@ -135,6 +150,7 @@ class SearchViewController: UIViewController{
         }
     }
     
+    /// Changes what is being presented to the user depending on the `viewState`
     private func setViewForState() {
         switch viewState {
         case .noResults:
@@ -152,9 +168,9 @@ class SearchViewController: UIViewController{
             searchMe.isHidden = true
             activityIndicator.startAnimating()
         }
-        
     }
     
+    /// Creates a SearchMe view from a xib
     private func createSearchMe() -> UIView? {
         if let searchMe = Bundle.main.loadNibNamed("SearchMe", owner: self, options: nil)?.first as? UIView {
             return searchMe
@@ -225,12 +241,23 @@ extension SearchViewController : UISearchBarDelegate {
         guard let query = searchBar.text, !query.isEmpty, query != lastSearch else {
             return
         }
-        print("Clicked")
+    
+        /// Reset what was last searched
         lastSearch = query
+        
+        /// Resets last retrieved item
         lastRetrieved = 1
+        
+        /// Removes all existing items
         items.removeAll()
+        
+        /// Resigns keyboard
         searchBar.resignFirstResponder()
+        
+        /// Changes `viewState` to the .searching state
         viewState = .searching
+        
+        /// Performs a search
         searchAndRetrieve(query: query, startAt: lastRetrieved)
         
     }
@@ -242,7 +269,6 @@ extension SearchViewController : UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(items.count)
         return items.count
     }
     
@@ -253,6 +279,8 @@ extension SearchViewController : UICollectionViewDelegate, UICollectionViewDataS
         let saleItem = items[indexPath.row]
         cell.configureCell(price: saleItem.salePrice, imgURL: saleItem.largeImage)
         
+        
+        /// If we are at the last item in our array, page for next set of data
         if indexPath.row == items.count - 1 {
             print(indexPath)
             pageResults()
@@ -260,9 +288,35 @@ extension SearchViewController : UICollectionViewDelegate, UICollectionViewDataS
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        <#code#>
-//    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        /// Create a footer view
+        if kind == UICollectionElementKindSectionFooter {
+            let aFooter = itemCollectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AnimationFooterCollectionReusableView.Constants.reuseIdentifer, for: indexPath) as! AnimationFooterCollectionReusableView
+            self.footerView = aFooter
+            footerView.backgroundColor = UIColor.clear
+            return aFooter
+        } else {
+            let header = itemCollectionView.dequeueReusableCell(withReuseIdentifier: AnimationFooterCollectionReusableView.Constants.reuseIdentifer, for: indexPath)
+            return header
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        
+        /// Begin footer animation
+        if elementKind == UICollectionElementKindSectionFooter {
+            footerView.beginAnimating()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
+        if elementKind == UICollectionElementKindSectionFooter {
+            
+            /// End footer animation
+            footerView.stopAnimating()
+        }
+    }
 }
 
 extension SearchViewController : UICollectionViewDelegateFlowLayout {
@@ -271,6 +325,10 @@ extension SearchViewController : UICollectionViewDelegateFlowLayout {
         let halfHeight = view.bounds.height / 2
         let maxWidth = min(quarterWidth, halfHeight)
         return CGSize(width: maxWidth, height: halfHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: itemCollectionView.bounds.width, height: 50)
     }
 }
 

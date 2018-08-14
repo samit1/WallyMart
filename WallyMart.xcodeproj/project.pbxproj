@@ -18,7 +18,9 @@
 		0FA366F72121F65A00C78769 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */; };
 		0FA366FA2121FC0E00C78769 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */; };
 		0FA366FD21223BE700C78769 /* SearchMe.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FA366FC21223BE700C78769 /* SearchMe.xib */; };
-		0FE3D094212247A2000EC8F2 /* AnimationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D093212247A2000EC8F2 /* AnimationView.xib */; };
+		0FE3D09621224F12000EC8F2 /* AnimationFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE3D09521224F12000EC8F2 /* AnimationFooter.xib */; };
+		0FE3D09821224FB3000EC8F2 /* AnimationFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE3D09721224FB3000EC8F2 /* AnimationFooterCollectionReusableView.swift */; };
+		0FE3D09A212329AB000EC8F2 /* WalmartSaleItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE3D099212329AB000EC8F2 /* WalmartSaleItemStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +37,9 @@
 		0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		0FA366FC21223BE700C78769 /* SearchMe.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchMe.xib; sourceTree = "<group>"; };
-		0FE3D093212247A2000EC8F2 /* AnimationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimationView.xib; sourceTree = "<group>"; };
+		0FE3D09521224F12000EC8F2 /* AnimationFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimationFooter.xib; sourceTree = "<group>"; };
+		0FE3D09721224FB3000EC8F2 /* AnimationFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationFooterCollectionReusableView.swift; sourceTree = "<group>"; };
+		0FE3D099212329AB000EC8F2 /* WalmartSaleItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalmartSaleItemStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 		0FA366F32121D60C00C78769 /* APIPayload */ = {
 			isa = PBXGroup;
 			children = (
+				0FE3D099212329AB000EC8F2 /* WalmartSaleItemStore.swift */,
 				0FA366F02121D58400C78769 /* WalmartSaleItem.swift */,
 				0FA366F42121D62600C78769 /* WalmartSearchPayload.swift */,
 			);
@@ -109,8 +114,9 @@
 		0FA366F82121FBEF00C78769 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0FE3D093212247A2000EC8F2 /* AnimationView.xib */,
 				0FA366F62121F65A00C78769 /* ItemCollectionViewCell.xib */,
+				0FE3D09521224F12000EC8F2 /* AnimationFooter.xib */,
+				0FE3D09721224FB3000EC8F2 /* AnimationFooterCollectionReusableView.swift */,
 				0FA366FC21223BE700C78769 /* SearchMe.xib */,
 				0FA366F92121FC0E00C78769 /* ItemCollectionViewCell.swift */,
 			);
@@ -186,7 +192,7 @@
 				0FA366F72121F65A00C78769 /* ItemCollectionViewCell.xib in Resources */,
 				0FA366FD21223BE700C78769 /* SearchMe.xib in Resources */,
 				0FA366E42121C95300C78769 /* LaunchScreen.storyboard in Resources */,
-				0FE3D094212247A2000EC8F2 /* AnimationView.xib in Resources */,
+				0FE3D09621224F12000EC8F2 /* AnimationFooter.xib in Resources */,
 				0FA366E12121C95300C78769 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,11 +206,13 @@
 			files = (
 				0FA366F12121D58400C78769 /* WalmartSaleItem.swift in Sources */,
 				0FA366DC2121C94F00C78769 /* SearchViewController.swift in Sources */,
+				0FE3D09A212329AB000EC8F2 /* WalmartSaleItemStore.swift in Sources */,
 				0FA366DA2121C94E00C78769 /* AppDelegate.swift in Sources */,
 				0FA366F52121D62600C78769 /* WalmartSearchPayload.swift in Sources */,
 				0FA366ED2121C98B00C78769 /* SearchAPI.swift in Sources */,
 				0FA366EF2121C9E000C78769 /* NetworkingErrors.swift in Sources */,
 				0FA366FA2121FC0E00C78769 /* ItemCollectionViewCell.swift in Sources */,
+				0FE3D09821224FB3000EC8F2 /* AnimationFooterCollectionReusableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

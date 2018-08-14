@@ -31,6 +31,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        print("Called")
         cancelPreviousTaskForCell()
         setImg(with: nil)
         setPrice(nil)
@@ -64,11 +65,13 @@ class ItemCollectionViewCell: UICollectionViewCell {
     }
   
     /// Finds and cancels the `lastRequest`
+    // QUESTION: This never gets called, what am I doing wrong?
     private func cancelPreviousTaskForCell() {
         URLSession.shared.getTasksWithCompletionHandler { [weak self] (dataTasks, _, _) in
             guard let sSelf = self else {return}
             for task in dataTasks {
                 if task.currentRequest == sSelf.lastRequest {
+                    print("Task was cancelled")
                     task.cancel()
                 }
             }
@@ -85,6 +88,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
             if let img = UIImage(data: response.data) {
                 DispatchQueue.main.async {
                     onCompletion(.success(img))
+                    print("retrieved from cache")
                 }
             } else {
                 cache.removeCachedResponse(for: request)

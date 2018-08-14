@@ -40,7 +40,7 @@ struct WalmartSearchAPI {
         }
         
         components?.queryItems = urlQueryItems
-        
+        print(components?.url)
         return components?.url
     }
     

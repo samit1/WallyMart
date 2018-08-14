@@ -18,3 +18,9 @@ struct WalmartForSaleItem: Codable {
     let largeImage: String?
     let productUrl : String?
 }
+
+extension WalmartForSaleItem : CustomStringConvertible {
+    var description: String {
+          return "Item ID: \(String(describing: itemId)) \n"
+    }
+}
