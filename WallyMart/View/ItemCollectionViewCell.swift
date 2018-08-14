@@ -36,6 +36,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
         setPrice(nil)
     }
     
+    // MARK: QUESTION: When I transition from portrait to landscape I end up with overlaying views. I've set vertical compression constraints and I retrigger an invalidated layout when I transition. Why is this happening?
     /// Sets the cell's image
     private func setImg(with imgURL: String?) {
         if let imgURL = imgURL, let url = URL(string: imgURL) {
@@ -51,6 +52,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
         } else {
             imgView.image = nil
         }
+        
     }
     
     
@@ -64,7 +66,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     }
   
     /// Finds and cancels the `lastRequest`
-    // QUESTION: This never gets called, what am I doing wrong?
+    // MARK: QUESTION: This never gets called, what am I doing wrong? I want to cancel the previous task when `prepareForReuse`
     private func cancelPreviousTaskForCell() {
         URLSession.shared.getTasksWithCompletionHandler { [weak self] (dataTasks, _, _) in
             guard let sSelf = self else {return}
@@ -87,7 +89,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
             if let img = UIImage(data: response.data) {
                 DispatchQueue.main.async {
                     onCompletion(.success(img))
-//                    print("retrieved img from cache")
+                    print("retrieved img from cache")
                 }
             } else {
                 cache.removeCachedResponse(for: request)
@@ -129,8 +131,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
         case failure
     }
     
-    // QUESTION:
-    /// Using the nibName here - that is a normal practice for nib's right?
+    // MARK: QUESTION: Using the nibName here - that is a normal practice for nib's right?
     struct Constants {
         static let reuseIdentifier = "WallmartItemCell"
         static let nibName = "ItemCollectionViewCell"

@@ -8,6 +8,18 @@
 
 import UIKit
 
+/*
+ Changes from last session:
+ 1. All delegation is handled lazily so datasource/delegate can be assigned to self and encapsulated
+ 2. Subviews added into one method, constraint addition called from viewDidLoad instead of loadView
+ 3. Added paging and search functionality
+ 4. Added footer activity indicator
+ 5. Moved lazy fetching of images into the collectionviewcelll 
+ 
+ 
+ */
+
+
 class SearchViewController: UIViewController {
     
     /// Search bar
@@ -74,7 +86,6 @@ class SearchViewController: UIViewController {
     private lazy var footerView : AnimationFooterCollectionReusableView = {
         var footerView = AnimationFooterCollectionReusableView()
         footerView.translatesAutoresizingMaskIntoConstraints = false
-        
         return footerView
     }()
     
@@ -94,24 +105,23 @@ class SearchViewController: UIViewController {
         view.backgroundColor = UIColor.orange
     }
     
+    // MARK: QUESTION: My views end up overlaying when I transition. Why? The view debugger shows it differently. I've created a stackview and the label has the highest compression resistance 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        itemCollectionView.collectionViewLayout.invalidateLayout()
+    }
     
-    // QUESTION:
-    /// This will get called a billion times. Is there a better way to do this? 
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    
+    // MARK: QUESTION: Is this the correct method to resign first responder? Recognize I don't want to use scrollviewdidscroll
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         searchBar.resignFirstResponder()
     }
-
+    
+    
     /// Adds a search bar to the navigation title view
     private func addSearchbar() {
         navigationItem.titleView = searchBar
     }
-    
-    /// Calls the walmartAPI to search for parameter
-    // Changed state and reloads data  depending on if success or failure
-    /* private func searchAndRetrieve(query: String, startAt: Int) */
-    
-
-    
     
     /// Changes what is being presented to the user depending on the `viewState`
     private func setViewForState() {
@@ -189,9 +199,6 @@ class SearchViewController: UIViewController {
         
         return paths
     }
-    
-    
-  
 }
 
 extension SearchViewController : UISearchBarDelegate {
@@ -287,6 +294,8 @@ extension SearchViewController : UICollectionViewDelegateFlowLayout {
 
 extension SearchViewController : WalmartForSaleItemStoreDataDelegate {
     func saleItemsDidUpdateNewValues(forSaleItems: [WalmartForSaleItem]) {
+        
+        // MARK: Question : So I right now when I set items, I reload the entire tableview. How do I only reload the new data in pagination? There is so much flickering in my app.
         items = forSaleItems
         viewState = .populated
     }

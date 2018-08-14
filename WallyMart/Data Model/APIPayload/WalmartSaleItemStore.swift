@@ -13,6 +13,7 @@ protocol WalmartForSaleItemStoreDataDelegate : class {
     func saleItemsFailedUpdate()
 }
 
+// MARK: Question: Delegation in structs, is it common?
 class WalmartForSaleItemStore {
     
     /// Items available for sale

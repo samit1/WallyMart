@@ -10,9 +10,9 @@ import Foundation
 /*
  Changes made from last session with Ludo:
  
- - nothing is static except the constants I am using
- - No longer creating a new URLSession each time the search function gets called. Instead I use the shared URL session
- - I am now implementing the shared cache, thoughts?
+ 1. nothing is static except the constants I am using
+ 2. No longer creating a new URLSession each time the search function gets called. Instead I use the shared URL session
+ 3. I am now implementing the shared cache (although not working,lol), thoughts?
  
  
  */
@@ -64,9 +64,9 @@ struct WalmartSearchAPI {
             "start" : String(resultStart),
             "numItems" : String(numItems.rawValue)
         ]
-        // MARK: Question
         guard let url = generateAPIURL(endPoint: .search, parameters: baseParams) else {
-            DispatchQueue.main.async { /// Question: Do I need to dispatch the main queue here?
+            // MARK: Question: Do I need to dispatch the main queue here? I have an escaping closure but I haven't called anything on the background thread
+            DispatchQueue.main.async {
                 onCompletion(.failure(NetworkingErrors.invalidURL))
             }
             
@@ -78,12 +78,11 @@ struct WalmartSearchAPI {
         let request = URLRequest(url: url)
         
         DispatchQueue.global(qos: .userInitiated).async {
-            
+            // QUESTION: I can't get my results to cache here. I don't know why. I take the same approach with caching my images but here cache.cachedResponsedForRequest is returning nil
             if let data = cache.cachedResponse(for: request)?.data {
                 print("search found in cache")
                 /// try parsing data into model object
-                // MARK: Question
-                /// self.parseSearchPayload does not cause a retain cycle because this struct is not a reference type. Can you confirm?
+                // MARK: Question: self.parseSearchPayload does not cause a retain cycle because this struct is not a reference type. Can you confirm?
                 guard let parsedPayload = self.parseSearchPayload(data: data) else {
                     /// if data does not parse correctly then remove from cache and notify
                     print(String(data: data, encoding: String.Encoding.utf8)!
@@ -108,6 +107,7 @@ struct WalmartSearchAPI {
                             }
                             
                             cache.storeCachedResponse(cachedData, for: request)
+
                             onCompletion(.success(parsedPayload))
                         } else {
                             onCompletion(.failure(NetworkingErrors.invalidResponse))
