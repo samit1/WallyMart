@@ -98,6 +98,7 @@
 		0FA366F22121D59000C78769 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
+				0FE3D09D212358EB000EC8F2 /* Stores */,
 				0FA366F32121D60C00C78769 /* APIPayload */,
 			);
 			path = "Data Model";
@@ -106,7 +107,6 @@
 		0FA366F32121D60C00C78769 /* APIPayload */ = {
 			isa = PBXGroup;
 			children = (
-				0FE3D099212329AB000EC8F2 /* WalmartSaleItemStore.swift */,
 				0FA366F02121D58400C78769 /* WalmartSaleItem.swift */,
 				0FA366F42121D62600C78769 /* WalmartSearchPayload.swift */,
 			);
@@ -132,6 +132,14 @@
 				0FE3D09B212352D2000EC8F2 /* SaleWebViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0FE3D09D212358EB000EC8F2 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				0FE3D099212329AB000EC8F2 /* WalmartSaleItemStore.swift */,
+			);
+			path = Stores;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
