@@ -31,7 +31,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        print("Called")
         cancelPreviousTaskForCell()
         setImg(with: nil)
         setPrice(nil)
@@ -88,7 +87,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
             if let img = UIImage(data: response.data) {
                 DispatchQueue.main.async {
                     onCompletion(.success(img))
-                    print("retrieved from cache")
+//                    print("retrieved img from cache")
                 }
             } else {
                 cache.removeCachedResponse(for: request)

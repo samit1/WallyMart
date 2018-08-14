@@ -44,18 +44,25 @@ struct WalmartSearchAPI {
         return components?.url
     }
     
+    enum SearchNumItems : Int {
+        case ten = 10
+        case fifteen = 15
+        case twenty = 20
+        case twentyFive = 25
+    }
     
     /// Search for an item on the Walmart API via keyword. Searching is performed on background thread and calls `onCompletion` on the main thread.
     /// - parameter query: The name of item to search for
     /// - parameter onCompletion: Completion handler to call once search returns
     
-    func search(query: String, resultStart: Int = 1, onCompletion: @escaping (SearchResults) -> () ) {
+    func search(query: String, numItems: SearchNumItems,resultStart: Int = 1, onCompletion: @escaping (SearchResults) -> () ) {
         
         let baseParams = [
             "query" : query,
             "format" : "json",
             "apiKey" : Constants.apiKey,
-            "start" : String(resultStart)
+            "start" : String(resultStart),
+            "numItems" : String(numItems.rawValue)
         ]
         // MARK: Question
         guard let url = generateAPIURL(endPoint: .search, parameters: baseParams) else {
@@ -73,7 +80,7 @@ struct WalmartSearchAPI {
         DispatchQueue.global(qos: .userInitiated).async {
             
             if let data = cache.cachedResponse(for: request)?.data {
-                
+                print("search found in cache")
                 /// try parsing data into model object
                 // MARK: Question
                 /// self.parseSearchPayload does not cause a retain cycle because this struct is not a reference type. Can you confirm?
@@ -88,6 +95,7 @@ struct WalmartSearchAPI {
                 
                 DispatchQueue.main.async {
                     onCompletion(.success(parsedPayload))
+                    print("search request cache retrieved")
                 }
             } else {
                 URLSession.shared.dataTask(with: request, completionHandler: { (data, response, errror) in

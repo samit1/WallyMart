@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController{
+class SearchViewController: UIViewController {
     
     /// Search bar
     private lazy var searchBar : UISearchBar = {
@@ -21,16 +21,10 @@ class SearchViewController: UIViewController{
     /// The last searched item
     private var lastSearch : String?
     
-    /// The last retrieved item
-    private var lastRetrieved = 0
-    
-    /// Walmart API
-    private var walmartAPI = WalmartSearchAPI()
-    
     /// Items to display to user
     private var items = [WalmartForSaleItem]() {
         didSet {
-            print(items)
+            itemCollectionView.reloadData()
         }
     }
     
@@ -47,6 +41,13 @@ class SearchViewController: UIViewController{
             setViewForState()
         }
     }
+    
+    /// Store which holds items for sale
+    private lazy var saleStore :  WalmartForSaleItemStore = {
+        let store = WalmartForSaleItemStore()
+        store.delegate = self
+        return store
+    }()
     
     /// Activity indicator shown at the center of the screen when a search is being performed
     private var activityIndicator : UIActivityIndicatorView = {
@@ -106,49 +107,11 @@ class SearchViewController: UIViewController{
     }
     
     /// Calls the walmartAPI to search for parameter
-    private func searchAndRetrieve(query: String, startAt: Int) {
+    // Changed state and reloads data  depending on if success or failure
+    /* private func searchAndRetrieve(query: String, startAt: Int) */
     
-        walmartAPI.search(query: query, resultStart: startAt) { [weak self] (result) in
-            /// Ensure self is still there by the time results return
-            guard let sSelf = self else {return}
-            switch result {
-            case .success(let payload):
-                
-                /// Guard against race conditions
-                guard sSelf.lastSearch == query else {
-                    return
-                }
-                
-                /// Append items to array
-                sSelf.items += (payload.items)
-                
-                // MARK: Question
-                /// How do I handle paging coming back in the wrong order?
-                sSelf.lastRetrieved = max(startAt, sSelf.lastRetrieved)
-                
-                
-                // MARK: Question
-                /// Any recommendations on how to I should only reload the new data that comes in instead of reloading the whole table? The following code was making me crash
-                /*
-                if prevCount == 0 {
-                    sSelf.itemCollectionView.reloadData()
-                } else {
-                   let updatePaths = sSelf.createIndexPaths(sectionStart: 0, sectionEnd: 0, rowStart: prevCount, rowEnd: newCount - 1)
-                   print(updatePaths)
-                   sSelf.itemCollectionView.reloadItems(at: updatePaths)
-                   }
-                 */
-                sSelf.itemCollectionView.reloadData()
-                sSelf.viewState = .populated
-                
-                
-            case .failure(let error):
-                sSelf.viewState = .noResults
-                sSelf.itemCollectionView.reloadData()
-                print(error)
-            }
-        }
-    }
+
+    
     
     /// Changes what is being presented to the user depending on the `viewState`
     private func setViewForState() {
@@ -159,11 +122,9 @@ class SearchViewController: UIViewController{
         case .paging:
             searchMe.isHidden = true
             activityIndicator.stopAnimating()
-            print("is paging... show footer view")
         case .populated:
             searchMe.isHidden = true
             activityIndicator.stopAnimating()
-            print("populated")
         case .searching:
             searchMe.isHidden = true
             activityIndicator.startAnimating()
@@ -211,11 +172,8 @@ class SearchViewController: UIViewController{
     
     /// Handles paging the paging for the next search results
     private func pageResults() {
-        guard let lastSearch = lastSearch else {
-            return
-        }
         viewState = .paging
-        searchAndRetrieve(query: lastSearch, startAt: lastRetrieved + 1)
+        saleStore.requestNextPage()
     }
     
     /// Creates index paths for specified start and end positions
@@ -245,11 +203,6 @@ extension SearchViewController : UISearchBarDelegate {
         /// Reset what was last searched
         lastSearch = query
         
-        /// Resets last retrieved item
-        lastRetrieved = 1
-        
-        /// Removes all existing items
-        items.removeAll()
         
         /// Resigns keyboard
         searchBar.resignFirstResponder()
@@ -258,7 +211,7 @@ extension SearchViewController : UISearchBarDelegate {
         viewState = .searching
         
         /// Performs a search
-        searchAndRetrieve(query: query, startAt: lastRetrieved)
+        saleStore.requestNewItems(query: query)
         
     }
 }
@@ -332,6 +285,19 @@ extension SearchViewController : UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension SearchViewController : WalmartForSaleItemStoreDataDelegate {
+    func saleItemsDidUpdateNewValues(forSaleItems: [WalmartForSaleItem]) {
+        items = forSaleItems
+        viewState = .populated
+    }
+    
+    func saleItemsFailedUpdate() {
+        items.removeAll()
+        viewState = .noResults
+    }
+    
+    
+}
 
 
 
